@@ -3,10 +3,11 @@ import {ExcelComponent} from '@core/ExcelComponent';
 export class Formula extends ExcelComponent {
   static className = 'excel-formula'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input', 'click']
+      listeners: ['input', 'keydown'],
+      ...options
     })
   }
 
@@ -19,9 +20,22 @@ export class Formula extends ExcelComponent {
   }
 
   onInput(event) {
-    console.log(this.$root);
-    console.log('Formula: onipnut', event.target.textContent.trim());
+    const text = event.target.textContent.trim()
+    this.$emit('formula:input', text)
   }
 
-  onClick() {}
+  onKeydown(event) {
+    const keys = [
+      'Enter',
+    ]
+
+    const {key} = event
+
+    if (keys.includes(key)) {
+      event.preventDefault()
+      // const id = this.selection.current.id(true)
+      // const $next = this.$root.find(nextSelector(key, id))
+      // this.selection.select($next)
+    }
+  }
 }
