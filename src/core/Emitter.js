@@ -31,7 +31,5 @@ export class Emitter {
 
 // Example
 // const emitter = new Emitter()
-
 // emitter.subscribe('asd', (data) => console.log('sub', data))
-
 // emitter.emit('asd', 42)
