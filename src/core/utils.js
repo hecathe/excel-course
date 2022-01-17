@@ -28,6 +28,7 @@ export function isEqual(a, b) {
   }
   return a === b
 }
+<<<<<<< HEAD
 
 export function camelToDashCase(str) {
   return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
@@ -38,3 +39,5 @@ export function toInlineStyles(styles = {}) {
       .map((key) => `${camelToDashCase(key)}: ${styles[key]}`)
       .join(';')
 }
+=======
+>>>>>>> caa965356bf83f94b51e977f9308c7a1a6597de7
