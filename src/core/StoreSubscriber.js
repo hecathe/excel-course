@@ -20,7 +20,6 @@ export class StoreSubscriber {
             }
           })
         }
-        // console.log(key);
       })
 
       this.prevState = this.store.getState()

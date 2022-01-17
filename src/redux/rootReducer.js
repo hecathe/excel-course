@@ -8,8 +8,8 @@ import {
 
 // pure function
 export function rootReducer(state, action) {
-  let field;
-  let val;
+  let field
+  let val
   switch (action.type) {
     case TABLE_RESIZE:
       field = action.data.type === 'col' ? 'colState' : 'rowState'

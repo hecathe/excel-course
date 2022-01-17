@@ -1,7 +1,7 @@
 import {ExcelComponent} from '@core/ExcelComponent';
+import {$} from '@core/dom';
 import {changeTitle} from '../../redux/actions';
-import {$} from '../../core/dom';
-import {defaultTitle} from '../../constants';
+import {defaultTitle} from '@/constants';
 
 export class Header extends ExcelComponent {
   static className = 'excel-header'
