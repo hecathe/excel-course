@@ -13,23 +13,20 @@ function getWidth(state, index) {
   return (state[index] || DEFAULT_WIDTH) + 'px';
 }
 
-const DEFAULT_WIDTH = 120
-const DEFAULT_HEIGHT = 24
-
-function getWidth(state, index) {
-  return (state[index] || DEFAULT_WIDTH) + 'px'
-}
-
 function getHeight(state, index) {
-  return (state[index] || DEFAULT_HEIGHT) + 'px'
+  return (state[index] || DEFAULT_HEIGHT) + 'px';
 }
-
 
 function toCell(state, row) {
   return function(_, col) {
-    const id = `${row}:${col}`
-    const width = getWidth(state.colState, col)
-    const data = state.dataState[id]
+    const id = `${row}:${col}`;
+    const width = getWidth(state.colState, col);
+    const data = state.dataState[id];
+    // const styles = toInlineStyles(state.stylesState[id]);
+    const styles = toInlineStyles({
+      ...defaultStyles,
+      ...state.stylesState[id]
+    });
     return `
       <div 
       class="cell" 
@@ -37,7 +34,7 @@ function toCell(state, row) {
       data-type="cell" 
       data-col="${col}" 
       data-id="${id}"
-      style="width: ${width}">
+      style="${styles}; width: ${width}">
       ${data || ''}
       </div>
     `;
@@ -59,8 +56,10 @@ function toColumn({col, index, width}) {
 }
 
 function createRow(index, content, state) {
-  const resize = index ? '<div class="row-resize" data-resize="row"></div>' : ''
-  const height = getHeight(state, index)
+  const resize = index
+    ? '<div class="row-resize" data-resize="row"></div>'
+    : '';
+  const height = getHeight(state, index);
   return `
     <div
       class="row"
@@ -91,18 +90,10 @@ function withWidthForm(state) {
   };
 }
 
-function withWidthForm(state) {
-  return function(col, index) {
-    return {
-      col, index, width: getWidth(state.colState, index)
-    }
-  }
-}
-
 export function createTable(rowsCount = 15, state = {}) {
   // console.log(state);
-  const colsCount = CODES.Z - CODES.A + 1
-  const rows = []
+  const colsCount = CODES.Z - CODES.A + 1;
+  const rows = [];
 
   const cols = new Array(colsCount)
       .fill('')
@@ -113,15 +104,15 @@ export function createTable(rowsCount = 15, state = {}) {
 
   // console.log(cols);
 
-  rows.push(createRow(null, cols, {}))
+  rows.push(createRow(null, cols, {}));
 
   for (let row = 0; row < rowsCount; row++) {
     const cells = new Array(colsCount)
         .fill('')
         .map(toCell(state, row))
-        .join('')
+        .join('');
 
-    rows.push(createRow(row + 1, cells, state.rowState))
+    rows.push(createRow(row + 1, cells, state.rowState));
   }
 
   return rows.join('');
