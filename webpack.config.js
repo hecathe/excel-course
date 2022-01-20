@@ -1,4 +1,5 @@
 const path = require('path');
+// const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -6,6 +7,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production';
+  // const isProd = process.env.NODE_ENV === 'production';
   const isDev = !isProd;
 
   console.log('isProd', isProd);
@@ -30,6 +32,9 @@ module.exports = (env, argv) => {
       new MiniCssExtractPlugin({
         filename: fileName('css')
       }),
+      // new webpack.DefinePlugin({
+      //   'process.env.NODE_ENV': JSON.stringify(argv.mode),
+      // })
     ]
 
     if (isDev) {
